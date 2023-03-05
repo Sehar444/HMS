@@ -9,14 +9,16 @@ import lombok.Data;
 @Data
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_no")
     private Long invoiceNo;
-    @Column(name = "guest_id")
-    private long guestId;
-    @Column(name = "booking_id")
-    private Long bookingId;
     @Column(name = "payment_date")
     private int paymentDate;
+    @ManyToOne
+    @JoinColumn(name = "guest_id")
+    private Guest guest;
+    @OneToOne
+    @JoinColumn(name = "room_no")
+    private Room room;
 
 }

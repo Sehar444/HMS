@@ -5,18 +5,16 @@ import jakarta.persistence.GenerationType;
 import lombok.*;
 import  jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="Booking")
 @Data
 public class Booking {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id")
     private Long bookingId;
-    @Column(name = "guest_id")
-    private String guestId;
-    @Column(name = "room_no")
-    private int roomNo;
     @Column(name = "booking_date")
     private int bookingDate;
     @Column(name = "booking_time")
@@ -27,6 +25,12 @@ public class Booking {
     private int departureTime;
     @Column(name = "special_requirements")
     private String specialRequirements;
+    @ManyToOne
+    @JoinColumn(name = "guest_id")
+    private Guest guest;
+    @ManyToOne
+    @JoinColumn(name = "room_no")
+    private Room room;
 
 
 }

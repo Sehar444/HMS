@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Guest {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "guest_id")
     private long guestId;
     @Column(name = "guest_name")
@@ -21,7 +21,5 @@ public class Guest {
     private String address;
     @Column(name = "no_of_persons")
     private int noOfPersons;
-
-
 
 }

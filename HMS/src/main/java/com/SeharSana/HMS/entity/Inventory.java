@@ -10,7 +10,7 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "room_status")
-    private String roomStatus;
+    private boolean roomStatus;
 
 
 }

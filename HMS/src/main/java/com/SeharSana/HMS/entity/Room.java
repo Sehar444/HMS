@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Room {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_no")
     private long roomNo;
     @Column(name = "room_location")
@@ -17,4 +17,7 @@ public class Room {
     private String roomType;
     @Column(name = "room_price")
     private String roomPrice;
+    @ManyToOne
+    @JoinColumn(name = "guest_id")
+    private Guest guest;
 }

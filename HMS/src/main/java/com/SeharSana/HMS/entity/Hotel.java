@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Hotel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="hotel-id")
     private int hotelId;
     @Column(name = "hotel_name")
