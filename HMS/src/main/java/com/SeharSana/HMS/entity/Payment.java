@@ -17,8 +17,5 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
-    @OneToOne
-    @JoinColumn(name = "room_no")
-    private Room room;
 
 }
