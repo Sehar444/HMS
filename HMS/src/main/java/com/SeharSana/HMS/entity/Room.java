@@ -3,21 +3,36 @@ package com.SeharSana.HMS.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name="Room")
 @Data
 public class Room {
+    public enum RoomType{
+        Classic_room,
+        Luxury_room,
+        Floor_no
+
+    }
+    public enum RoomLocation{
+        Corridor_Room,
+        Balcony_Room
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_no")
     private long roomNo;
-    @Column(name = "room_location")
-    private String roomLocation;
-    @Column(name = "room_type")
-    private String roomType;
+    private RoomLocation roomLocation;
+    private RoomType roomType;
     @Column(name = "room_price")
     private String roomPrice;
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
+
+
 }

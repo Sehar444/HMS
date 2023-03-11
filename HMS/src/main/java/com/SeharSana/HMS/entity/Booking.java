@@ -16,15 +16,7 @@ public class Booking {
     @Column(name = "booking_id")
     private Long bookingId;
     @Column(name = "booking_date")
-    private int bookingDate;
-    @Column(name = "booking_time")
-    private int bookingTime;
-    @Column(name = "arrival_time")
-    private int arrivalTime;
-    @Column(name = "departure_time")
-    private int departureTime;
-    @Column(name = "special_requirements")
-    private String specialRequirements;
+    private java.time.LocalDateTime bookingDatetime;
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
