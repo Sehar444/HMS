@@ -2,6 +2,7 @@ package com.SeharSana.HMS.service;
 
 import com.SeharSana.HMS.Repository.GuestRepository;
 import com.SeharSana.HMS.entity.Guest;
+import com.SeharSana.HMS.model.GuestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,8 @@ public class GuestService {
     @Autowired
     private GuestRepository guestRepo;
 
-    public  Guest guestInfo(Guest guest) {
-        return guestRepo.save(guest);
+    public GuestModel guestInfo(GuestModel guestModel) {
+        return guestModel.assemble(guestRepo.save(guestModel.disassemble()));
     }
 
 }
