@@ -33,7 +33,7 @@ public class Guest {
     @OneToMany(mappedBy = "guest")
     private List<SpecialRequirements> specialRequirementsList;
     @OneToMany(mappedBy = "guest")
-    private List<CheckIn> checkInList;
+    private List<Reservation> checkInList;
     @OneToMany(mappedBy = "guest")
     private List<Payment> paymentList;
 }

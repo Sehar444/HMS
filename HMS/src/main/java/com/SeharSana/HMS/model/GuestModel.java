@@ -1,5 +1,6 @@
 package com.SeharSana.HMS.model;
 import com.SeharSana.HMS.entity.Guest;
+import com.SeharSana.HMS.entity.Room;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -29,5 +30,6 @@ public class GuestModel {
         guestModel.setNoOfPersons(guest.getNoOfPersons());
         return guestModel;
     }
+
 
 }

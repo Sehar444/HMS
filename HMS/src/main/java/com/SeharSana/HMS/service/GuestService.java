@@ -17,4 +17,8 @@ public class GuestService {
         return guestModel.assemble(guestRepo.save(guestModel.disassemble()));
     }
 
+    public List<Guest> getGuest() {
+        return guestRepo.findAll();
+
+    }
 }

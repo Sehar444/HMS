@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name="CheckIn_Out")
+@Table(name="Reservation")
 @Data
-public class CheckIn {
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int CheckIn_Out;
+    private int ReservationId;
     @Column(name = "arrival_date")
     private java.time.LocalDateTime arrivalDateTime;
     @Column(name = "departure_date")

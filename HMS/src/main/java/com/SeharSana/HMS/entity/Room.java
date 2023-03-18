@@ -26,13 +26,12 @@ public class Room {
     private RoomLocation roomLocation;
     private RoomType roomType;
     @Column(name = "room_price")
-    private String roomPrice;
+    private long roomPrice;
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
-
 
 }
