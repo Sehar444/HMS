@@ -12,7 +12,7 @@ public class Room {
     public enum RoomType{
         Classic_room,
         Luxury_room,
-        Floor_no
+
 
     }
     public enum RoomLocation{

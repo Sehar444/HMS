@@ -12,16 +12,17 @@ public class Guest {
     public enum Address{
         City
     }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "guest_id")
-    private long guestId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
+    private Long id;
     @Column(name = "guest_name")
     private String guestName;
     @Column(name = "guest_cnic")
-    private String guestCnic;
+    private Long guestCnic;
     @Column(name = "phone_no")
-    private String phoneNo;
+    private Long phoneNo;
     @Column(name ="address")
     private String address;
     @Column(name = "no_of_persons")
