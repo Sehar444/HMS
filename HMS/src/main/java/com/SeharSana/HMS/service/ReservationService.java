@@ -18,11 +18,6 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired
-    private GuestRepository guestRepo;
-    public ReservationModel CheckInout(ReservationModel reservationModel) {
-        return reservationModel.assemble(reservationRepository.save(reservationModel.disassemble()));
+    private GuestRepository guestRepository;
 
-    }
-    public List<Reservation> getGuest() {
-        return reservationRepository.findAll();
-}}
+}

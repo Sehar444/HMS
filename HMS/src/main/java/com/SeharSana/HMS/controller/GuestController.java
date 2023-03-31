@@ -8,15 +8,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class GuestController {
+@RequestMapping(path = "/guest")
+public class GuestController
+{
     @Autowired
-    private GuestService guestService;
-    @PostMapping(path="/GuestInfo")
-    public GuestModel save(@RequestBody GuestModel guestModel) {
+    GuestService guestService;
+    @PostMapping(path="/save")
+    public GuestModel saveGuest(@RequestBody GuestModel guestModel)
+    {
         return guestService.saveGuest(guestModel);
     }
-    @GetMapping(path = "/GuestList")
-    public List<GuestModel> getAllGuest(@RequestParam(name = "guestId",required = false) Long guestId, @RequestParam(name = "guestCnic",required = false) Long guestCnic) {
+    @GetMapping(path = "/list")
+    public List<GuestModel> getGuest(@RequestParam(name = "guestId",required = false) Long guestId
+            , @RequestParam(name = "guestCnic",required = false) Long guestCnic)
+    {
         return guestService.findGuest(guestId,guestCnic);
     }
     @GetMapping(path = "/id/{guestId}" )

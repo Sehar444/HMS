@@ -7,77 +7,78 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 @Service
 public class GuestService {
     @Autowired
-    private GuestRepository guestRepo;
-
-//    public GuestModel saveGuest(GuestModel guestModel) {
-//        return guestModel.assemble(guestRepo.save(guestModel.disassemble()));
-//    }
-
-    //save guest info by name and ID
-
+    private GuestRepository guestRepository;
     @Transactional
-    public GuestModel saveGuest(GuestModel guestModel) {
+    public GuestModel saveGuest(GuestModel guestModel)
+    {
         Guest guest = null;
-        if (!ObjectUtils.isEmpty(guestModel)) {
+        if (!ObjectUtils.isEmpty(guestModel))
+        {
             guest = findExistingGuest(guestModel);
             if (ObjectUtils.isEmpty(guest)) {
                 guest = guestModel.disassemble();
-            } else {
-                guest.setId(guest.getId());
+            } else
+            {
+                guest.setCnic(guestModel.getGuestCnic());
             }
 
         }
-        return new GuestModel(guestRepo.save(guest));
+        return new GuestModel(guestRepository.save(guest));
     }
-
-
-    private Guest findExistingGuest(GuestModel guestModel) {
-        Guest guest=null;
-        if (!ObjectUtils.isEmpty(guestModel.getGuestId())) {
-            guest = guestRepo.findGuestById(guestModel.getGuestId());
-        } else if (!StringUtils.isEmpty(guestModel.getGuestCnic())) {
-            guest = guestRepo.findGuestByCnic(guestModel.getGuestCnic());
-        }
-        return guest;
-    }
-//
-//
     public List<GuestModel> findGuest(Long guestId, Long guestCnic) {
         List<GuestModel> guestModels = new ArrayList<>();
-        if (guestId != null) {
-            guestModels = List.of(guestRepo.findAll()
+        if (guestId != null)
+        {
+            guestModels = List.of(guestRepository.findAll()
                     .stream()
                     .map(GuestModel::new)
                     .filter(guestModel -> guestModel.getGuestId().equals(guestId))
                     .findFirst()
                     .get());
-        } else if (guestCnic != null) {
-            guestModels = List.of(guestRepo.findAll()
+        }
+        else if (guestCnic != null)
+        {
+            guestModels = List.of(guestRepository.findAll()
                     .stream()
                     .map(GuestModel::new)
                     .filter(guestModel -> guestModel.getGuestCnic().equals(guestCnic))
                     .findFirst()
                     .get());
-        } else
+        }
+        else
+        {
 
-            guestModels = guestRepo.findAll()
+            guestModels = guestRepository.findAll()
                     .stream()
                     .map(GuestModel::new)
                     .collect(Collectors.toList());
 
+        }
         return guestModels;
     }
+
+    private Guest findExistingGuest(GuestModel guestModel)
+    {
+        Guest guest=null;
+        if (!ObjectUtils.isEmpty(guestModel.getGuestId()))
+        {
+            guest = guestRepository.findGuestById(guestModel.getGuestId());
+        }
+        else if (!ObjectUtils.isEmpty(guestModel.getGuestCnic()))
+        {
+            guest = guestRepository.findGuestByCnic(guestModel.getGuestCnic());
+        }
+        return guest;
+    }
+
+
 }
 
 

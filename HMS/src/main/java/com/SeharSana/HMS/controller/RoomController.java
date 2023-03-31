@@ -1,19 +1,32 @@
 package com.SeharSana.HMS.controller;
 
+import com.SeharSana.HMS.model.GuestModel;
 import com.SeharSana.HMS.model.RoomModel;
 import com.SeharSana.HMS.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping(path = "/room")
 public class RoomController {
     @Autowired
     private RoomService roomService;
-    @PostMapping("/roomInfo")
-    public RoomModel save(@RequestBody RoomModel roomModel){
-        return roomService.roomInfo(roomModel);
+    @PostMapping("/save")
+    public RoomModel save(@RequestBody RoomModel roomModel)
+    {
+        return roomService.saveRoom(roomModel);
 
+    }
+    @GetMapping(path = "/list")
+    public List<RoomModel> getRoom(@RequestParam(name = "roomNumber",required = false) Long roomNumber)
+    {
+        return roomService.findRoom(roomNumber);
+    }
+    @GetMapping(path = "/roomNumber/{roomNumber}" )
+    public List<RoomModel> getRoomById(@PathVariable(value = "roomNumber") Long roomNumber)
+    {
+        return roomService.findRoom(roomNumber);
     }
 }

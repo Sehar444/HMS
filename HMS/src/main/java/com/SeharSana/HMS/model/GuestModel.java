@@ -1,44 +1,53 @@
 package com.SeharSana.HMS.model;
-import com.SeharSana.HMS.entity.Guest;
-import com.SeharSana.HMS.entity.Room;
+import com.SeharSana.HMS.entity.*;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.List;
+
+
 @Data
 public class GuestModel {
     private Long guestId;
     private String guestName;
     private Long guestCnic;
-    private Long phoneNo;
-    private String address;
-    private int noOfPersons;
-    private Room.RoomType roomType;
+    private Long guestPhoneNo;
+    private String guestAddress;
+    private Long noOfPersons;
+    private List<Room> room;
+    private List<Reservation> reservation;
+    private List<SpecialRequirements> specialRequirements;
+    private List<Payment> payment;
 
-    public Guest disassemble() {
-        Guest guestnp = new Guest();
-        guestnp.setId(this.getGuestId());
-        guestnp.setGuestName(this.getGuestName());
-        guestnp.setGuestCnic(this.getGuestCnic());
-        guestnp.setAddress(this.getAddress());
-        guestnp.setNoOfPersons(this.getNoOfPersons());
-        return guestnp;
-    }
 
-//    public GuestModel assemble(Guest guest) {
-//        GuestModel guestModel = new GuestModel();
-//        guestModel.setGuestId(guest.getGuestId());
-//        guestModel.setGuestName(guest.getGuestName());
-//        guestModel.setGuestCnic(guest.getGuestCnic());
-//        guestModel.setPhoneNo(guest.getPhoneNo());
-//        guestModel.setAddress(guest.getAddress());
-//        guestModel.setNoOfPersons(guest.getNoOfPersons());
-//        return guestModel;
-//    }
     public GuestModel(Guest guest){
         this.guestId=guest.getId();
-        this.guestCnic=guest.getGuestCnic();
+        this.guestName=guest.getName();
+        this.guestCnic=guest.getCnic();
+        this.guestAddress=guest.getAddress();
+        this.guestPhoneNo=guest.getPhoneNo();
+        this.noOfPersons=guest.getNoOfPersons();
+        this.room=  guest.getRoom();
+        this.reservation=guest.getReservation();
+        this.specialRequirements=guest.getSpecialRequirements();
+        this.payment=guest.getPayment();
+
+
     }
+    public Guest disassemble() {
+        Guest npGuest = new Guest();
+        npGuest.setId(this.getGuestId());
+        npGuest.setName(this.getGuestName());
+        npGuest.setCnic(this.getGuestCnic());
+        npGuest.setAddress(this.getGuestAddress());
+        npGuest.setNoOfPersons(this.getNoOfPersons());
+        npGuest.setPhoneNo(this.getGuestPhoneNo());
+        npGuest.setRoom(this.getRoom());
+        npGuest.setReservation(this.getReservation());
+        npGuest.setSpecialRequirement(this.getSpecialRequirements());
+        npGuest.setPayment(this.getPayment());
+        return npGuest;
+    }
+
 }
 
 
