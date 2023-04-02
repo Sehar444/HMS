@@ -10,19 +10,17 @@ import java.util.List;
 @Data
 public class Hotel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="hotel_id")
-    private int hotelId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name ="id")
+    private int id;
     @Column(name = "hotel_name")
-    private String hotelName;
+    private String name;
     @Column(name = "hotel_location")
-    private String hotelLocation;
+    private String location;
     @Column(name = "hotel_phone_no")
     private Long phoneNo;
-    @Column(name = "email")
+    @Column(name = "hotel_email")
     private String email;
-    @Column(name = "contact_person")
-    private Long phone_no;
     @OneToMany(mappedBy = "hotel")
     List<Room> hotelRoom;
 }

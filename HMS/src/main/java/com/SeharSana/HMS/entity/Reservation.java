@@ -2,11 +2,13 @@ package com.SeharSana.HMS.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="reservation")
-@Data
+@Component
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

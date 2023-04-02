@@ -1,11 +1,12 @@
 package com.SeharSana.HMS.entity;
-import com.SeharSana.HMS.Utility.RoomType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.stereotype.Component;
 
 
 @Entity
 @Table(name="room")
+@Component
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +27,24 @@ public class Room {
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoomType roomType;
+    @Column(name = "room_type")
+    private int roomType;
+    @Column(name ="rooms_type")
+    private String roomTypes;
     public Room(){
 
+    }
+
+    public void setRoomType(int roomType) {
+        this.roomType = roomType;
+    }
+
+    public String getRoomTypes() {
+        return roomTypes;
+    }
+
+    public void setRoomTypes(String roomTypes) {
+        this.roomTypes = roomTypes;
     }
 
     public Long getId() {
@@ -39,14 +53,6 @@ public class Room {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public RoomType getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
     }
 
     public Long getRoomNumber() {
@@ -104,4 +110,6 @@ public class Room {
     }
 
 
+    public void setRoomType(String toString) {
+    }
 }

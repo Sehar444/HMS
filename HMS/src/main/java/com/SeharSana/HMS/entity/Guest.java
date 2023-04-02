@@ -1,6 +1,7 @@
 package com.SeharSana.HMS.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import java.util.List;
 

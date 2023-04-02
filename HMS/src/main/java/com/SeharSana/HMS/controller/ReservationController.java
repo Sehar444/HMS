@@ -21,13 +21,13 @@ public class ReservationController {
     private ReservationService reservationService;
 
 
-    @PostMapping("/CheckInOut")
-    public ReservationModel save(@RequestBody ReservationModel reservationModel) {
-        return reservationService.CheckInout(reservationModel);
-    }
-
-    @GetMapping("/AllCheckInOUt")
-    public List<Reservation> ReservationTotal() {
-        return reservationService.getGuest();
-    }
+//    @PostMapping("/CheckInOut")
+//    public ReservationModel save(@RequestBody ReservationModel reservationModel) {
+//        return reservationService.CheckInout(reservationModel);
+//    }
+//
+//    @GetMapping("/AllCheckInOUt")
+//    public List<Reservation> ReservationTotal() {
+//        return reservationService.getGuest();
+//    }
 }

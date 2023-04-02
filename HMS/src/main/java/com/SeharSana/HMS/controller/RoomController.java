@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/room")
+@RequestMapping( "/room")
 public class RoomController {
     @Autowired
     private RoomService roomService;
@@ -19,12 +19,12 @@ public class RoomController {
         return roomService.saveRoom(roomModel);
 
     }
-    @GetMapping(path = "/list")
+    @GetMapping("/list")
     public List<RoomModel> getRoom(@RequestParam(name = "roomNumber",required = false) Long roomNumber)
     {
         return roomService.findRoom(roomNumber);
     }
-    @GetMapping(path = "/roomNumber/{roomNumber}" )
+    @GetMapping("/roomNumber/{roomNumber}" )
     public List<RoomModel> getRoomById(@PathVariable(value = "roomNumber") Long roomNumber)
     {
         return roomService.findRoom(roomNumber);

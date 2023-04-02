@@ -1,7 +1,6 @@
 package com.SeharSana.HMS.model;
 import com.SeharSana.HMS.entity.*;
 import lombok.Data;
-
 import java.util.List;
 
 
@@ -17,22 +16,6 @@ public class GuestModel {
     private List<Reservation> reservation;
     private List<SpecialRequirements> specialRequirements;
     private List<Payment> payment;
-
-
-    public GuestModel(Guest guest){
-        this.guestId=guest.getId();
-        this.guestName=guest.getName();
-        this.guestCnic=guest.getCnic();
-        this.guestAddress=guest.getAddress();
-        this.guestPhoneNo=guest.getPhoneNo();
-        this.noOfPersons=guest.getNoOfPersons();
-        this.room=  guest.getRoom();
-        this.reservation=guest.getReservation();
-        this.specialRequirements=guest.getSpecialRequirements();
-        this.payment=guest.getPayment();
-
-
-    }
     public Guest disassemble() {
         Guest npGuest = new Guest();
         npGuest.setId(this.getGuestId());
@@ -47,6 +30,23 @@ public class GuestModel {
         npGuest.setPayment(this.getPayment());
         return npGuest;
     }
+
+    public GuestModel(Guest guest){
+        this.guestId=guest.getId();
+        this.guestName=guest.getName();
+        this.guestCnic=guest.getCnic();
+        this.guestAddress=guest.getAddress();
+        this.guestPhoneNo=guest.getPhoneNo();
+        this.noOfPersons=guest.getNoOfPersons();
+        this.room=guest.getRoom();
+        this.reservation=guest.getReservation();
+        this.specialRequirements=guest.getSpecialRequirements();
+        this.payment=guest.getPayment();
+    }
+    public  GuestModel(){
+
+    }
+
 
 }
 
