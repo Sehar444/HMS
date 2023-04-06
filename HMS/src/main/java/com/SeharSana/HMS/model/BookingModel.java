@@ -13,11 +13,12 @@ import java.util.Optional;
 
 @Component
 @Data
-public class BookingModel {
+public class BookingModel extends  Booking {
     private Long bookingId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private LocalTime estimatedCheckInTime;
+    private boolean isCancelled;
     private GuestModel guestModel;
     private RoomModel roomModel;
 
@@ -28,39 +29,30 @@ public class BookingModel {
         booking.getCheckInDate();
         booking.getCheckOutDate();
         booking.getEstimatedCheckInTime();
-
+        booking.setRoom(this.getRoomModel().disassemble());
+        booking.setGuest(this.getGuestModel().disassemble());
         return booking;
     }
 
     public BookingModel assemble(Booking booking) {
         BookingModel bookingModel = new BookingModel();
         bookingModel.setBookingId(booking.getId());
-        bookingModel.setBookingId(booking.getId());
         bookingModel.setCheckInDate(booking.getCheckInDate());
+        bookingModel.setCheckOutDate(booking.getCheckOutDate());
         bookingModel.setEstimatedCheckInTime(booking.getEstimatedCheckInTime());
         return bookingModel;
     }
+    public BookingModel(Booking booking){
+        this.bookingId=booking.getId();
+        this.checkInDate=booking.getCheckInDate();
+        this.checkOutDate=booking.getCheckOutDate();
+        this.estimatedCheckInTime=booking.getEstimatedCheckInTime();
+        this.isCancelled=booking.equals(isCancelled);
+        this.guestModel=booking.getGuest().orElseThrow("Guest Not Found");
+        this.roomModel=booking.getRoom().orElseThrow("Room Not Found");
+    }
+    public  BookingModel(){
 
-    public long totalNights() {
-        if (checkInDate == null || checkOutDate == null) {
-            return 0;
-        }
-        return ChronoUnit.DAYS.between(checkInDate, checkOutDate);
     }
 
-    public Optional<ValidationError> validate(LocalDate now) {
-        if (checkInDate == null) {
-            return Optional.of(new ValidationError("checkInDate.missing", "Missing check in date"));
-        } else if (checkOutDate == null) {
-            return Optional.of(new ValidationError("checkOutDate.missing", "Missing check out date"));
-        } else if (checkInDate.isBefore(now)) {
-            return Optional.of(new ValidationError("checkInDate.future", "Check in date must be in the future"));
-        } else if (checkOutDate.isBefore(checkInDate)) {
-            return Optional.of(new ValidationError("checkOutDate.afterCheckIn", "Check out date must occur after check in date"));
-        } else if (totalNights() < 1) {
-            // handles case where check in/out dates are the same.
-            return Optional.of(new ValidationError("checkOutDate.minNights", "Reservation must be for at least 1 night"));
-        }
-        return Optional.empty();
-    }
 }

@@ -26,13 +26,13 @@ public class GuestService {
                 guest = guestModel.disassemble();
             } else
             {
-                guest.setCnic(guestModel.getGuestCnic());
+                guest.setEmail(guestModel.getGuestEmail());
             }
 
         }
         return new GuestModel(guestRepository.save(guest));
     }
-    public List<GuestModel> findGuest(Long guestId, Long guestCnic) {
+    public List<GuestModel> findGuest(Long guestId, String guestEmail) {
         List<GuestModel> guestModels = new ArrayList<>();
         if (guestId != null)
         {
@@ -43,12 +43,12 @@ public class GuestService {
                     .findFirst()
                     .get());
         }
-        else if (guestCnic != null)
+        else if (guestEmail != null)
         {
             guestModels = List.of(guestRepository.findAll()
                     .stream()
                     .map(GuestModel::new)
-                    .filter(guestModel -> guestModel.getGuestCnic().equals(guestCnic))
+                    .filter(guestModel -> guestModel.getGuestEmail().equalsIgnoreCase(guestEmail))
                     .findFirst()
                     .get());
         }
@@ -71,9 +71,9 @@ public class GuestService {
         {
             guest = guestRepository.findGuestById(guestModel.getGuestId());
         }
-        else if (!ObjectUtils.isEmpty(guestModel.getGuestCnic()))
+        else if (!ObjectUtils.isEmpty(guestModel.getGuestEmail()))
         {
-            guest = guestRepository.findGuestByCnic(guestModel.getGuestCnic());
+            guest = guestRepository.findGuestByEmail(guestModel.getGuestEmail());
         }
         return guest;
     }

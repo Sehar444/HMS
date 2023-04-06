@@ -1,4 +1,4 @@
-package com.SeharSana.HMS.model;
+package com.SeharSana.HMS.Utility;
 
 public class ValidationError {
     final String code;

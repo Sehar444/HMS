@@ -8,8 +8,8 @@ import java.util.List;
 public class GuestModel {
     private Long guestId;
     private String guestName;
-    private Long guestCnic;
-    private Long guestPhoneNo;
+    private String guestEmail;
+    private Long guestPhoneNumber;
     private String guestAddress;
     private Long noOfPersons;
     private List<Room> room;
@@ -20,10 +20,9 @@ public class GuestModel {
         Guest npGuest = new Guest();
         npGuest.setId(this.getGuestId());
         npGuest.setName(this.getGuestName());
-        npGuest.setCnic(this.getGuestCnic());
-        npGuest.setAddress(this.getGuestAddress());
+        npGuest.setEmail(this.getGuestEmail());
         npGuest.setNoOfPersons(this.getNoOfPersons());
-        npGuest.setPhoneNo(this.getGuestPhoneNo());
+        npGuest.setPhoneNumber(this.getGuestPhoneNumber());
         npGuest.setRoom(this.getRoom());
         npGuest.setReservation(this.getReservation());
         npGuest.setSpecialRequirement(this.getSpecialRequirements());
@@ -34,9 +33,8 @@ public class GuestModel {
     public GuestModel(Guest guest){
         this.guestId=guest.getId();
         this.guestName=guest.getName();
-        this.guestCnic=guest.getCnic();
-        this.guestAddress=guest.getAddress();
-        this.guestPhoneNo=guest.getPhoneNo();
+        this.guestEmail=guest.getEmail();
+        this.guestPhoneNumber=guest.getPhoneNumber();
         this.noOfPersons=guest.getNoOfPersons();
         this.room=guest.getRoom();
         this.reservation=guest.getReservation();

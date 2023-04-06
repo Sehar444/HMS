@@ -1,9 +1,14 @@
 package com.SeharSana.HMS.entity;
 
+import com.SeharSana.HMS.model.GuestModel;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="guest")
@@ -11,22 +16,29 @@ import java.util.List;
 public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "guest_id")
+    @Column(name = "id")
     private Long id;
     @Column(name = "guest_name")
     private String name;
-    @Column(name = "guest_cnic")
-    private Long cnic;
-    @Column(name = "guest_phone_no")
-    private Long phoneNo;
-    @Column(name = "guest_address")
-    private String address;
+    @Column(name = "guest_email")
+    private String email;
+    @Column(name = "guest_phone_number")
+    private Long phoneNumber;
     @Column(name = "guest_no_of_persons")
     private Long noOfPersons;
     @OneToMany(mappedBy = "guest")
     private List<Room> room;
-//    @OneToMany(mappedBy = "guest")
-//    private List<Booking> booking;
+    @OneToMany(mappedBy = "guest")
+   private List<Booking> booking;
+
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
+    }
+
     @OneToMany(mappedBy = "guest")
     private List<SpecialRequirements> specialRequirements;
     @OneToMany(mappedBy = "guest")
@@ -36,6 +48,22 @@ public class Guest {
 
     public Long getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Long phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setId(Long id) {
@@ -48,30 +76,6 @@ public class Guest {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getCnic() {
-        return cnic;
-    }
-
-    public void setCnic(Long cnic) {
-        this.cnic = cnic;
-    }
-
-    public Long getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(Long phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Long getNoOfPersons() {
@@ -113,5 +117,21 @@ public class Guest {
 
     public void setPayment(List<Payment> payment) {
         this.payment = payment;
+    }
+
+
+    public GuestModel orElseThrow(String guestNotFound) {
+        GuestModel guestModel = null;
+        return guestModel;
+    }
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Reservation> reservations;
+
+    public Set<Reservation> getReservations() {
+        if (reservations == null) {
+            reservations = new HashSet<>();
+        }
+        return reservations;
     }
 }

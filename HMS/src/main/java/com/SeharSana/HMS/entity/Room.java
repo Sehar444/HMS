@@ -1,8 +1,14 @@
 package com.SeharSana.HMS.entity;
+
+import com.SeharSana.HMS.model.RoomModel;
+import com.SeharSana.HMS.Utility.EnRoomType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="room")
@@ -10,32 +16,40 @@ import org.springframework.stereotype.Component;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
-    @NaturalId
-    @Column(name = "room_no",nullable = false, unique = true)
+    @Column(name = "room_no", unique = true)
     private Long  roomNumber;
-    @Column(name = "beds", nullable = false)
+    @Column(name = "beds")
     private int beds;
-    @Column(name="room_price", nullable = false)
+    @Column(name="room_price")
     private long roomPrice;
+    public boolean isReserved;
 
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
-    @OneToOne(cascade =CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Reservation reservation;
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+    @Enumerated(EnumType.STRING)
     @Column(name = "room_type")
-    private int roomType;
+    private EnRoomType roomType;
     @Column(name ="rooms_type")
     private String roomTypes;
-    public Room(){
 
+    public Room(){
+        this.isReserved();
     }
 
-    public void setRoomType(int roomType) {
+    public EnRoomType getRoomType()
+    {
+        return roomType;
+    }
+
+    public void setRoomType(EnRoomType roomType) {
         this.roomType = roomType;
     }
 
@@ -97,6 +111,7 @@ public class Room {
             reservation.setRoom(this);
         }
     }
+
     public boolean isReserved() {
         return reservation != null;
     }
@@ -109,7 +124,20 @@ public class Room {
         this.hotel = hotel;
     }
 
-
     public void setRoomType(String toString) {
+    }
+
+    public RoomModel orElseThrow(Object roomNotFound) {
+        return null;
+    }
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Reservation> reservations;
+
+    public Set<Reservation> getReservations() {
+        if (reservations == null) {
+            reservations = new HashSet<>();
+        }
+        return reservations;
     }
 }

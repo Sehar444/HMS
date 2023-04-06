@@ -1,25 +1,26 @@
 package com.SeharSana.HMS.Utility;
 
 public enum EnRoomType {
-    BALCONY(1,"Balcony"),
-    BAlCONY(2,"Balcony"),
-//    BALCONY(3,"Balcony"),
-//    BAlCONY(4,"Balcony"),
-    BUSINESS(1,"Business"),
-    LUXURY(1,"LUXURY");
-    private int val;
-    private String strValue;
-    EnRoomType(int val, String strValue)
-    {
-        this.val = val;
-        this.strValue = strValue;
+    BALCONY("Balcony"),
+    LUXURY("Luxury"),
+    STANDARD("Standard");
+
+    private String roomType;
+
+    EnRoomType(String roomType) {
+        this.roomType = roomType;
     }
-    public  String getRoomType()
-    {
-        return  strValue;
+
+    public String getRoomType() {
+        return roomType;
     }
-    public int getVal()
-    {
-        return val;
+
+    public static EnRoomType fromString(String text) {
+        for (EnRoomType enRoomType : EnRoomType.values()) {
+            if (enRoomType.roomType.equalsIgnoreCase(text)) {
+                return enRoomType;
+            }
+        }
+        return null;
     }
 }

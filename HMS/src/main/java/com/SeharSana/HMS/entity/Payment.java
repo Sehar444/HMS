@@ -19,4 +19,6 @@ public class Payment {
     private Guest guest;
 
 
+    public void setReservation(Reservation reservation) {
+    }
 }

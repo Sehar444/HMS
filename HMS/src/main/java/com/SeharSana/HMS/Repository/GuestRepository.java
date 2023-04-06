@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface GuestRepository extends JpaRepository<Guest,Long> {
 
     Guest findGuestById(Long guestId);
-    Guest findGuestByCnic(Long guestCnic);
+    Guest findGuestByEmail(String guestEmail);
 
 }

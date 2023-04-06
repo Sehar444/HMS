@@ -10,12 +10,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name="Booking")
+@Table(name="booking")
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id")
+    @Column(name = "id")
     private Long id;
     @Column(nullable = false)
     @NotNull("Check in date required")

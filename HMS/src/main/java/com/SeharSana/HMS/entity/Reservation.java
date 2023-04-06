@@ -1,23 +1,29 @@
 package com.SeharSana.HMS.entity;
 
+import com.SeharSana.HMS.Utility.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name="reservation")
 @Component
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
-    @Column(nullable = false)
-    private LocalDateTime createdTime;
+    private long id;
+    @Column(name = "check_in_date", nullable = false)
+    private LocalDate checkInDate;
 
+    @Column(name = "check_out_date", nullable = false)
+    private LocalDate checkOutDate;
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id")
     private Payment payment;
     @ManyToOne
     @JoinColumn(name = "guest_id")
@@ -25,49 +31,83 @@ public class Reservation {
     @OneToOne
     @JoinColumn(name = "room_no")
     private Room room;
+    @Column(name = "status", nullable = false)
+    private ReservationStatus status;
 
-    public int getId() {
+    // constructors, getters, and setters
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+        guest.getReservations( ).add(this);
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+        room.getReservations( ).add(this);
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+        payment.setReservation(this);
+
+
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
+    public LocalDate getCheckInDate() {
+        return checkInDate;
     }
 
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
+    public void setCheckInDate(LocalDate checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public LocalDate getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public void setCheckOutDate(LocalDate checkOutDate) {
+        this.checkOutDate = checkOutDate;
     }
 
     public Payment getPayment() {
         return payment;
     }
 
-    public void setPayment(Payment payment) {
-        createdTime = LocalDateTime.now();
-        this.payment = payment;
-    }
-
     public Guest getGuest() {
         return guest;
     }
 
-    public void setGuest(Guest guest) {
-        this.guest = guest;
+    public ReservationStatus getStatus() {
+        return status;
     }
 
-    public Room getRoom() {
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
+    }
+
+    public Object getRoom() {
         return room;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public boolean isCheckIn() {
+        return isCheckIn();
     }
 
+    public boolean isCheckOut() {
+        return isCheckOut();
+    }
 
+    public void setCheckIn(boolean checkIn) {
+    }
 
-
+    public void setCheckOut(boolean checkOut) {
+    }
 }
