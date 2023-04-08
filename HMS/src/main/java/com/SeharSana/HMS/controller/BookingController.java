@@ -13,10 +13,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@RequestMapping("/booking")
 public class BookingController {
     @Autowired
     private BookingService bookingService;
+    @Autowired
     private RoomService roomService;
+    @Autowired
     private GuestService guestService;
         @PostMapping("/createBooking")
         public ResponseEntity<BookingModel> createBooking(

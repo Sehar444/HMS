@@ -77,6 +77,10 @@ public class GuestService {
         }
         return guest;
     }
+    public void deleteGuest(long guestId){
+        guestRepository.deleteById(guestId);
+
+    }
 
 
 }

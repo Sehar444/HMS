@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping( "/room")
@@ -19,72 +18,54 @@ public class RoomController {
     private RoomService roomService;
 
     @PostMapping("/save")
-    public ResponseEntity <RoomModel> saveRoom(@RequestBody RoomModel roomModel){
-        RoomModel savedRoom=roomService.createRoom(roomModel);
+    public ResponseEntity<RoomModel> saveRoom(@RequestBody RoomModel roomModel)
+    {
+        RoomModel savedRoom = roomService.createRoom(roomModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRoom);
     }
 
-        @GetMapping("/{roomId}")
-        public ResponseEntity<RoomModel> getRoom(@PathVariable Long roomId) {
-            Optional<RoomModel> optionalRoom
-                    = Optional.ofNullable(roomService.getRoomById(roomId));
-            if (optionalRoom.isPresent()) {
-                RoomModel room = optionalRoom.get();
-                return ResponseEntity.ok().body(room);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        }
-    @GetMapping("/AllRooms")
-    public List<Room> getaAllRoomsList(){
-        return roomService.findAllRooms();
+    @GetMapping("/{roomId}")
+    public Room getRoom(@PathVariable Long roomId)
+    {
+        return roomService.getRoomById(roomId);
     }
+
+    @GetMapping("/AllRooms")
+    public List<Room> getaAllRoomsList()
+    {
+        return roomService.findAllRooms( );
+    }
+
     @GetMapping("/available")
-    public List<Room> getAvailableRooms(@RequestParam EnRoomType roomType) {
+    public List<Room> getAvailableRooms(@RequestParam EnRoomType roomType)
+    {
         return roomService.findAvailableRoomsByType(roomType);
     }
 
     @GetMapping("/{roomId}/availability")
-    public ResponseEntity<Boolean> isRoomAvailable(@PathVariable Long roomId) {
-        RoomModel roomModel = roomService.getRoomById(roomId);
-        if (roomModel == null) {
+    public ResponseEntity<Boolean> isRoomAvailable(@PathVariable Long roomId)
+    {
+        Room room = roomService.getRoomById(roomId);
+        if (room == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        boolean isAvailable = roomService.isRoomAvailable(roomModel.assemble(new Room()));
+        boolean isAvailable = roomService.isRoomAvailable(room.getReservation( ).getRoom( ));
         return new ResponseEntity<>(isAvailable, HttpStatus.OK);
     }
 
 
-        @PutMapping("/{roomId}")
-        public ResponseEntity<RoomModel> updateRoom(@PathVariable Long roomId, @RequestBody RoomModel roomModel) {
-            Optional<RoomModel> optionalRoom = Optional.ofNullable(roomService.getRoomById(roomId));
-
-            if (optionalRoom.isPresent()) {
-                RoomModel existingRoom = optionalRoom.get();
-                existingRoom.setRoomNumber(roomModel.getRoomNumber());
-                existingRoom.setBeds(roomModel.getBeds());
-                existingRoom.setRoomPrice(roomModel.getRoomPrice());
-                existingRoom.setEnRoomType(roomModel.getEnRoomType());
-                existingRoom.setHotelModel(roomModel.getHotelModel());
-                existingRoom.setReservationModel(roomModel.getReservationModel());
-
-                RoomModel updatedRoom = roomService.updateRoom(existingRoom);
-                return ResponseEntity.ok().body(updatedRoom);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        }
-
-        @DeleteMapping("/{roomId}")
-        public ResponseEntity<Void> deleteRoom(@PathVariable Long roomId) {
-            Optional<RoomModel> optionalRoom = Optional.ofNullable(roomService.getRoomById(roomId));
-
-            if (optionalRoom.isPresent()) {
-                roomService.deleteRoom(roomId);
-                return ResponseEntity.noContent().build();
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        }
-
+    @PutMapping("/{roomId}")
+    public RoomModel updateRoom(@PathVariable Long roomId, @RequestBody RoomModel roomModel)
+    {
+        roomModel.setRoomId(roomId);
+        return roomService.updateRoom(roomModel);
     }
+
+    @DeleteMapping("/{roomId}")
+    public void deleteRoom(@PathVariable Long roomId)
+    {
+        roomService.deleteRoom(roomId);
+    }
+}
+
+

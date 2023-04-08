@@ -22,6 +22,4 @@ public class SpecialRequirements {
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
-
-
 }

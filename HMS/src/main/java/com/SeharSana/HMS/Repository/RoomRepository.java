@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface RoomRepository extends JpaRepository<Room, Long> {
     Room findRoomByRoomNumber(Long roomNumber);
     Room findRoomByRoomPrice(Long roomPrice);
-    Room findRoomByRoomType(String roomType);
+    Room findRoomByEnRoomType(String enRoomType);
     Optional<Room> findByRoomNumberAndReservationIsNull(Long roomNumber);
     List<Room> findByRoomTypeAndReservationIsNull(EnRoomType roomType);
 }

@@ -29,8 +29,12 @@ public class GuestController
     public List<GuestModel> getGuestById(@PathVariable(value = "guestId") Long guestId)
     {
         return guestService.findGuest(guestId,null);
-    }
 
+    }
+    @DeleteMapping("/{id}")
+    public void deleteGuest(long guestId){
+        guestService.deleteGuest(guestId);
+    }
 
 
 }
