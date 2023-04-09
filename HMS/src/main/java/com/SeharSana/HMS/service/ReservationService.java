@@ -18,7 +18,7 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
 
     public List<Reservation> getAllReservations() {
-        return reservationRepository.findAll( );
+        return reservationRepository.findAll();
     }
 
     public Reservation getReservationById(Long id)
@@ -46,7 +46,6 @@ public class ReservationService {
             existingReservation.setCheckIn(reservationUpdates.isCheckIn( ));
             existingReservation.setCheckOut(reservationUpdates.isCheckOut( ));
             existingReservation.setStatus(reservationUpdates.getStatus( ));
-            existingReservation.setPayment(reservationUpdates.getPayment( ));
             existingReservation.setGuest(reservationUpdates.getGuest( ));
             existingReservation.setRoom(reservationUpdates.getRoom( ));
             return reservationRepository.save(existingReservation);

@@ -1,10 +1,12 @@
 package com.SeharSana.HMS.controller;
 
+import com.SeharSana.HMS.entity.Guest;
 import com.SeharSana.HMS.model.GuestModel;
 import com.SeharSana.HMS.service.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,18 +23,18 @@ public class GuestController
     }
     @GetMapping("/list")
     public List<GuestModel> getGuest(@RequestParam(name = "guestId",required = false) Long guestId
-            , @RequestParam(name = "guestCnic",required = false) String guestEmail)
+            , @RequestParam(name = "guestEmail",required = false) String guestEmail)
     {
-        return guestService.findGuest(guestId,guestEmail);
+        List<Guest> gusetList = guestService.findGuest(guestId, guestEmail);
+        List<GuestModel> guestModelList = new ArrayList<>();
+        for (Guest guest : gusetList) {
+            guestModelList.add(new GuestModel(guest));
+        }
+        return guestModelList;
     }
-    @GetMapping("/id/{guestId}" )
-    public List<GuestModel> getGuestById(@PathVariable(value = "guestId") Long guestId)
-    {
-        return guestService.findGuest(guestId,null);
 
-    }
     @DeleteMapping("/{id}")
-    public void deleteGuest(long guestId){
+    public void deleteGuest(@PathVariable Long guestId){
         guestService.deleteGuest(guestId);
     }
 

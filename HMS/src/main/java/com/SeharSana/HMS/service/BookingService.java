@@ -12,7 +12,7 @@ import com.SeharSana.HMS.model.GuestModel;
 import com.SeharSana.HMS.model.RoomModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class BookingService {
     private GuestRepository guestRepository;
 
     public BookingModel createBooking(Long guestId, Long roomId
-            , LocalDate checkInDate, LocalDate checkOutDate)
+            , String checkInDate, String checkOutDate)
     {
         GuestModel guestModel = guestRepository.findGuestById(guestId)
                 .orElseThrow(String.valueOf(new GuestNotFoundException("Guest Not Found")));
@@ -37,6 +37,8 @@ public class BookingService {
         if (!isRoomReserved)
         {
             BookingModel bookingModel = new BookingModel();
+            bookingModel.setCheckInDate(checkInDate);
+            bookingModel.setCheckOutDate(checkOutDate);
             roomModel.assemble(roomRepository.save(roomModel.disassemble()));
             guestRepository.save(guestModel.disassemble());
             bookingModel.assemble(bookingRepository.save(bookingModel.disassemble()));
@@ -47,8 +49,8 @@ public class BookingService {
             throw new RoomAlreadyBookedException("Room is already booked");
         }
     }
-    public List<Booking> findBooking(Long bookingId, LocalDate checkInDate
-            , LocalDate checkOutDate)
+    public List<Booking> findBooking(Long bookingId, String checkInDate
+            , String checkOutDate)
     {
         List<Booking> bookingModels;
         if (bookingId != null)

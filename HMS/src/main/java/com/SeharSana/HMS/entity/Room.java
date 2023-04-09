@@ -5,10 +5,12 @@ import com.SeharSana.HMS.exception.RoomNotFoundException;
 import com.SeharSana.HMS.model.RoomModel;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name="room")
 @Data
+@Component
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +37,6 @@ public class Room {
 
     public RoomModel orElseThrow(RoomNotFoundException roomNotFound)
     {
-        return new RoomModel();
+        return new RoomModel(reservation.getRoom( ));
     }
 }

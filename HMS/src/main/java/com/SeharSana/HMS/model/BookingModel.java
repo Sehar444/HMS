@@ -5,16 +5,17 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Component
 @Data
 public class BookingModel  {
     private Long bookingId;
-    private LocalDate checkInDate;
-    private LocalDate checkOutDate;
-    private LocalTime estimatedCheckInTime;
+    private String checkInDate;
+    private String checkOutDate;
     private boolean isCancelled;
+
+    private RoomModel roomModel;
+    private GuestModel guestModel;
 
 
     public Booking disassemble()
@@ -23,6 +24,9 @@ public class BookingModel  {
         booking.setId(this.getBookingId());
         booking.setCheckInDate(this.getCheckInDate());
         booking.setCheckInDate(this.getCheckOutDate());
+        booking.setRoom(roomModel.disassemble());
+        booking.setGuest(guestModel.disassemble());
+
         return booking;
     }
 
@@ -32,13 +36,16 @@ public class BookingModel  {
         bookingModel.setBookingId(booking.getId());
         bookingModel.setCheckInDate(booking.getCheckInDate());
         bookingModel.setCheckOutDate(booking.getCheckOutDate());
+        bookingModel.setRoomModel(new RoomModel(booking.getRoom( )).assemble(booking.getRoom()));
+        bookingModel.setGuestModel(new GuestModel(  ));
+
+
         return bookingModel;
     }
     public BookingModel(Booking booking){
         this.bookingId=booking.getId();
         this.checkInDate=booking.getCheckInDate();
         this.checkOutDate=booking.getCheckOutDate();
-        this.isCancelled=booking.equals(isCancelled);
     }
     public  BookingModel(){
 

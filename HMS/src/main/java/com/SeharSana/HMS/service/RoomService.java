@@ -6,6 +6,8 @@ import com.SeharSana.HMS.entity.Room;
 import com.SeharSana.HMS.exception.RoomNotFoundException;
 import com.SeharSana.HMS.model.RoomModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -40,16 +42,10 @@ public class RoomService
     }
 
 
-    public List<Room> findAvailableRoomsByType(EnRoomType roomType)
-    {
-        return roomRepository.findByRoomTypeAndReservationIsNull(roomType);
-    }
-
-    public boolean isRoomAvailable(Room room)
-    {
-        return roomRepository.findByRoomNumberAndReservationIsNull
-                (room.getRoomNumber()).isPresent();
-    }
+//    public List<Room> findAvailableRoomsByType(EnRoomType roomType)
+//    {
+//        return roomRepository.findByRoomTypeAndReservationIsNull(roomType);
+//    }
     public void deleteRoom(Long id)
     {
         roomRepository.deleteById(id);

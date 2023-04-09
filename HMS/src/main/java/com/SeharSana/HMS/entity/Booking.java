@@ -16,12 +16,10 @@ public class Booking {
     @Column(name = "id")
     private Long id;
     @Column(name = "check_In_Date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate checkInDate;
+    private String checkInDate;
 
     @Column(name = "check_Out_Date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate checkOutDate;
+    private String checkOutDate;
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;

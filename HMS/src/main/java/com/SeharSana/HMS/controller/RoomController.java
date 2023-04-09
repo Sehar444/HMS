@@ -36,23 +36,11 @@ public class RoomController {
         return roomService.findAllRooms( );
     }
 
-    @GetMapping("/available")
-    public List<Room> getAvailableRooms(@RequestParam EnRoomType roomType)
-    {
-        return roomService.findAvailableRoomsByType(roomType);
-    }
-
-    @GetMapping("/{roomId}/availability")
-    public ResponseEntity<Boolean> isRoomAvailable(@PathVariable Long roomId)
-    {
-        Room room = roomService.getRoomById(roomId);
-        if (room == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        boolean isAvailable = roomService.isRoomAvailable(room.getReservation( ).getRoom( ));
-        return new ResponseEntity<>(isAvailable, HttpStatus.OK);
-    }
-
+//    @GetMapping("roomType/available")
+//    public List<Room> getAvailableRooms(@RequestParam EnRoomType roomType)
+//    {
+//        return roomService.findAvailableRoomsByType(roomType);
+//    }
 
     @PutMapping("/{roomId}")
     public RoomModel updateRoom(@PathVariable Long roomId, @RequestBody RoomModel roomModel)

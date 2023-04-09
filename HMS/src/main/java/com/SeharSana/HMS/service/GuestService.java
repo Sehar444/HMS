@@ -3,84 +3,36 @@ package com.SeharSana.HMS.service;
 import com.SeharSana.HMS.Repository.GuestRepository;
 import com.SeharSana.HMS.entity.Guest;
 import com.SeharSana.HMS.model.GuestModel;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GuestService {
-    @Autowired
-    private GuestRepository guestRepository;
-    @Transactional
-    public GuestModel saveGuest(GuestModel guestModel)
-    {
-        Guest guest = null;
-        if (!ObjectUtils.isEmpty(guestModel))
-        {
-            guest = findExistingGuest(guestModel);
-            if (ObjectUtils.isEmpty(guest)) {
-                guest = guestModel.disassemble();
-            } else
-            {
-                guest.setEmail(guestModel.getGuestEmail());
+        @Autowired
+        public GuestRepository guestRepository;
+        public GuestModel saveGuest(GuestModel guestModel){
+            return guestModel.assemble(guestRepository.save(guestModel.disassemble()));
+        }
+
+        public List<Guest> findGuest(Long guestId, String guestEmail) {
+            if (guestId != null && guestEmail != null) {
+                guestRepository.findGuestByIdAndEmail(guestId, guestEmail);
+            } else if (guestId != null) {
+                guestRepository.findGuestById(guestId);
+            } else if (guestEmail != null) {
+                guestRepository.findGuestByEmail(guestEmail);
             }
+            return guestRepository.findAll();
+        }
+
+        public void deleteGuest(Long gusetId) {
+            GuestModel guest = guestRepository.findGuestById(gusetId)
+                            .orElseThrow("Guest Not Found");
+            guestRepository.delete(guest.disassemble( ));
 
         }
-        return new GuestModel(guestRepository.save(guest));
-    }
-    public List<GuestModel> findGuest(Long guestId, String guestEmail) {
-        List<GuestModel> guestModels = new ArrayList<>();
-        if (guestId != null)
-        {
-            guestModels = List.of(guestRepository.findAll()
-                    .stream()
-                    .map(GuestModel::new)
-                    .filter(guestModel -> guestModel.getGuestId().equals(guestId))
-                    .findFirst()
-                    .get());
-        }
-        else if (guestEmail != null)
-        {
-            guestModels = List.of(guestRepository.findAll()
-                    .stream()
-                    .map(GuestModel::new)
-                    .filter(guestModel -> guestModel.getGuestEmail().equalsIgnoreCase(guestEmail))
-                    .findFirst()
-                    .get());
-        }
-        else
-        {
-
-            guestModels = guestRepository.findAll()
-                    .stream()
-                    .map(GuestModel::new)
-                    .collect(Collectors.toList());
-
-        }
-        return guestModels;
-    }
-
-    private Guest findExistingGuest(GuestModel guestModel)
-    {
-        Guest guest=null;
-        if (!ObjectUtils.isEmpty(guestModel.getGuestId()))
-        {
-            guest = guestRepository.findGuestById(guestModel.getGuestId());
-        }
-        else if (!ObjectUtils.isEmpty(guestModel.getGuestEmail()))
-        {
-            guest = guestRepository.findGuestByEmail(guestModel.getGuestEmail());
-        }
-        return guest;
-    }
-    public void deleteGuest(long guestId){
-        guestRepository.deleteById(guestId);
-
-    }
 
 
 }

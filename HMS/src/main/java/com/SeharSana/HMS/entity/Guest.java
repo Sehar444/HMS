@@ -16,7 +16,7 @@ import java.util.Set;
 @Component
 public class Guest {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "guest_name")
@@ -30,11 +30,7 @@ public class Guest {
     @OneToMany(mappedBy = "guest")
    private List<Booking> booking;
     @OneToMany(mappedBy = "guest")
-    private List<SpecialRequirements> specialRequirements;
-    @OneToMany(mappedBy = "guest")
     private List<Reservation> reservation;
-    @OneToMany(mappedBy = "guest")
-    private List<Payment> payment;
 
     public GuestModel orElseThrow(String guestNotFound) {
         return new GuestModel();

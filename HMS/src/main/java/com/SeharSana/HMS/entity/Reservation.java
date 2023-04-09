@@ -10,12 +10,9 @@ import java.time.LocalDate;
 @Data
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @OneToOne
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;

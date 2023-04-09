@@ -23,14 +23,13 @@ public class RoomModel  {
         npRoom.setBeds(this.getBeds());
         npRoom.setRoomPrice(this.getRoomPrice());
         npRoom.isReserved();
-        npRoom.setRoomType(this.disassemble( ).getRoomType());
         npRoom.setReservation(npRoom.getReservation( ));
         npRoom.setEnRoomType(this.getEnRoomType());
         return npRoom;
     }
     public RoomModel assemble(Room room)
     {
-        RoomModel roomModel = new RoomModel();
+        RoomModel roomModel = new RoomModel(room);
         roomModel.setRoomId(room.getId());
         roomModel.setRoomNumber(room.getRoomNumber());
         roomModel.setBeds(room.getBeds());
@@ -38,7 +37,16 @@ public class RoomModel  {
         roomModel.setEnRoomType(room.getEnRoomType());
         return roomModel;
     }
-    public RoomModel()
+    public RoomModel(Room room)
     {
+
+        this.roomId=room.getId();
+        this.roomNumber=room.getRoomNumber();
+        this.beds=room.getBeds();
+        this.enRoomType=room.getEnRoomType();
+
+    }
+    public RoomModel(){
+
     }
 }

@@ -25,19 +25,18 @@ public class BookingController {
         public ResponseEntity<BookingModel> createBooking(
                 @RequestParam Long guestId,
                 @RequestParam Long roomId,
-                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,
-                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate
+                @RequestParam String checkInDate,
+                @RequestParam String checkOutDate
         ) {
-            BookingModel booking = bookingService.createBooking(guestId, roomId, checkInDate, checkOutDate);
-            return ResponseEntity.ok(booking);
+            BookingModel bookingModel = bookingService.createBooking(guestId, roomId, checkInDate, checkOutDate);
+            return ResponseEntity.ok(bookingModel);
         }
 
         @GetMapping("/findBooking")
         public ResponseEntity<List<Booking>> findBookings(
                 @RequestParam(required = false) Long bookingId,
-                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,
-                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate
-        ) {
+                @RequestParam(required = false) String checkInDate,
+                @RequestParam(required = false) String checkOutDate) {
             List<Booking> bookings = bookingService.findBooking(bookingId, checkInDate, checkOutDate);
             return ResponseEntity.ok(bookings);
         }

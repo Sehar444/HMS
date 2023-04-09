@@ -14,9 +14,6 @@ public class GuestModel {
     private Long guestPhoneNumber;
     private String guestAddress;
     private Long noOfPersons;
-    private List<Reservation> reservation;
-    private List<SpecialRequirements> specialRequirements;
-    private List<Payment> payment;
     public Guest disassemble()
     {
         Guest npGuest = new Guest();
@@ -25,10 +22,17 @@ public class GuestModel {
         npGuest.setEmail(this.getGuestEmail());
         npGuest.setNoOfPersons(this.getNoOfPersons());
         npGuest.setPhoneNumber(this.getGuestPhoneNumber());
-        npGuest.setReservation(this.getReservation());
-        npGuest.setSpecialRequirements(this.getSpecialRequirements());
-        npGuest.setPayment(this.getPayment());
         return npGuest;
+    }
+
+    public GuestModel assemble(Guest guest) {
+        GuestModel guestModel = new GuestModel( );
+        guestModel.setGuestId(guest.getId( ));
+        guestModel.setGuestName(guest.getName( ));
+        guestModel.setGuestEmail(guest.getEmail( ));
+        guestModel.setNoOfPersons(guest.getNoOfPersons( ));
+        guest.setPhoneNumber(guest.getPhoneNumber( ));
+        return guestModel;
     }
 
     public GuestModel(Guest guest)
@@ -38,9 +42,6 @@ public class GuestModel {
         this.guestEmail=guest.getEmail();
         this.guestPhoneNumber=guest.getPhoneNumber();
         this.noOfPersons=guest.getNoOfPersons();
-        this.reservation=guest.getReservation();
-        this.specialRequirements=guest.getSpecialRequirements();
-        this.payment=guest.getPayment();
     }
     public  GuestModel(){
 
